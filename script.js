@@ -1,100 +1,97 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Menu hamburguesa mejorado
-    const hamburger = document.querySelector('.hamburger');
-    const navList = document.querySelector('.nav-list');
-    const body = document.body;
+// Optimized JavaScript - Solo lo esencial
+(function() {
+    'use strict';
     
-    hamburger.addEventListener('click', function() {
-        this.classList.toggle('active');
-        navList.classList.toggle('active');
-        body.classList.toggle('no-scroll');
-    });
-    
-    // Cerrar menú al hacer clic en un enlace
-    const navLinks = document.querySelectorAll('.nav-link');
-    navLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            hamburger.classList.remove('active');
-            navList.classList.remove('active');
-            body.classList.remove('no-scroll');
-        });
-    });
-    
-    // Scroll suave mejorado con polyfill para Safari
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-            
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                // Usar scrollIntoView con polyfill si es necesario
-                if ('scrollBehavior' in document.documentElement.style) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                } else {
-                    // Fallback para navegadores antiguos
-                    smoothScrollTo(targetElement.offsetTop - 80, 800);
-                }
-            }
-        });
-    });
-    
-    // Header con mejor detección de scroll
+    // Cache DOM elements
     const header = document.getElementById('header');
-    let lastScroll = 0;
-    
-    window.addEventListener('scroll', function() {
-        const currentScroll = window.scrollY;
-        
-        // Solo animar si el desplazamiento es mayor a 100px
-        if (currentScroll > 100) {
-            header.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.5)';
-            
-            // Ocultar/mostrar header basado en dirección de scroll
-            if (currentScroll > lastScroll && currentScroll > 100) {
-                header.style.transform = 'translateY(-100%)';
-            } else {
-                header.style.transform = 'translateY(0)';
-            }
-        } else {
-            header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.3)';
-            header.style.transform = 'translateY(0)';
-        }
-        
-        lastScroll = currentScroll;
-    });
-    
-    // Función de scroll suave para navegadores antiguos
-    function smoothScrollTo(endY, duration) {
-        const startY = window.scrollY;
-        const distance = endY - startY;
-        const startTime = new Date().getTime();
-        
-        function scroll() {
-            const currentTime = new Date().getTime();
-            const timeElapsed = currentTime - startTime;
-            const progress = Math.min(timeElapsed / duration, 1);
-            
-            window.scrollTo(0, startY + (distance * progress));
-            
-            if (timeElapsed < duration) {
-                requestAnimationFrame(scroll);
-            }
-        }
-        
-        scroll();
+    const nav = document.getElementById('nav');
+    const menuToggle = document.getElementById('menuToggle');
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+
+    // Menu toggle functionality
+    function toggleMenu() {
+        const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+        menuToggle.setAttribute('aria-expanded', !isExpanded);
+        nav.classList.toggle('active');
+        menuToggle.classList.toggle('active');
+        document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
     }
-    
-    // Detectar cambios en la orientación del dispositivo
-    window.addEventListener('orientationchange', function() {
-        // Forzar recálculo de dimensiones
-        setTimeout(() => {
-            window.dispatchEvent(new Event('resize'));
-        }, 300);
-    });
-});
+
+    // Close menu when clicking nav links
+    function closeMenu() {
+        menuToggle.setAttribute('aria-expanded', 'false');
+        nav.classList.remove('active');
+        menuToggle.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    // Smooth scroll with performance optimization
+    function smoothScroll(e) {
+        e.preventDefault();
+        const target = e.currentTarget.getAttribute('href');
+        const element = document.querySelector(target);
+        if (!element) return;
+
+        const offsetTop = element.offsetTop - 70; // Header height
+        
+        if ('scrollBehavior' in document.documentElement.style) {
+            window.scrollTo({
+                top: offsetTop,
+                behavior: 'smooth'
+            });
+        } else {
+            // Fallback for older browsers
+            window.scrollTo(0, offsetTop);
+        }
+
+        // Close menu if mobile
+        if (window.innerWidth <= 768) {
+            closeMenu();
+        }
+    }
+
+    // Throttled scroll handler for header
+    function updateHeader() {
+        const scrollY = window.scrollY;
+        
+        if (scrollY > 100) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+        
+        ticking = false;
+    }
+
+    // Event listeners
+    function init() {
+        // Menu toggle
+        menuToggle.addEventListener('click', toggleMenu);
+        
+        // Close menu when clicking nav links
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', smoothScroll);
+        });
+        
+        // Scroll event with throttling
+        window.addEventListener('scroll', () => {
+            lastScrollY = window.scrollY;
+            
+            if (!ticking) {
+                window.requestAnimationFrame(updateHeader);
+                ticking = true;
+            }
+        }, { passive: true });
+        
+        // Initial header state
+        updateHeader();
+    }
+
+    // Initialize when DOM is loaded
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+})();
