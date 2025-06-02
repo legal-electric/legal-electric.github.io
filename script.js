@@ -1,4 +1,4 @@
-// Optimized JavaScript - Solo lo esencial
+// Optimized JavaScript - Carga de imágenes y funcionalidad
 (function() {
     'use strict';
     
@@ -8,6 +8,36 @@
     const menuToggle = document.getElementById('menuToggle');
     let lastScrollY = window.scrollY;
     let ticking = false;
+
+    // Carga optimizada de imágenes
+    function loadLazyImages() {
+        const lazyImages = [].slice.call(document.querySelectorAll('img[loading="lazy"]'));
+        
+        if ('IntersectionObserver' in window) {
+            const lazyImageObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        const lazyImage = entry.target;
+                        lazyImage.src = lazyImage.dataset.src || lazyImage.src;
+                        lazyImage.classList.add('loaded');
+                        lazyImageObserver.unobserve(lazyImage);
+                    }
+                });
+            }, {
+                rootMargin: '200px'
+            });
+
+            lazyImages.forEach((lazyImage) => {
+                lazyImageObserver.observe(lazyImage);
+            });
+        } else {
+            // Fallback para navegadores antiguos
+            lazyImages.forEach((img) => {
+                img.src = img.dataset.src || img.src;
+                img.classList.add('loaded');
+            });
+        }
+    }
 
     // Menu toggle functionality
     function toggleMenu() {
@@ -35,15 +65,10 @@
 
         const offsetTop = element.offsetTop - 70; // Header height
         
-        if ('scrollBehavior' in document.documentElement.style) {
-            window.scrollTo({
-                top: offsetTop,
-                behavior: 'smooth'
-            });
-        } else {
-            // Fallback for older browsers
-            window.scrollTo(0, offsetTop);
-        }
+        window.scrollTo({
+            top: offsetTop,
+            behavior: 'smooth'
+        });
 
         // Close menu if mobile
         if (window.innerWidth <= 768) {
@@ -66,6 +91,9 @@
 
     // Event listeners
     function init() {
+        // Carga de imágenes
+        loadLazyImages();
+        
         // Menu toggle
         menuToggle.addEventListener('click', toggleMenu);
         
@@ -86,6 +114,23 @@
         
         // Initial header state
         updateHeader();
+
+        // Precargar imágenes importantes
+        if ('link' in document.createElement('link')) {
+            const preloadLinks = [
+                { href: 'img/logo.webp', as: 'image', type: 'image/webp' },
+                { href: 'img/instalaciones.webp', as: 'image', type: 'image/webp' }
+            ];
+            
+            preloadLinks.forEach(link => {
+                const el = document.createElement('link');
+                el.rel = 'preload';
+                el.href = link.href;
+                el.as = link.as;
+                if (link.type) el.type = link.type;
+                document.head.appendChild(el);
+            });
+        }
     }
 
     // Initialize when DOM is loaded

@@ -44,24 +44,22 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
+/* === OPTIMIZACIÓN DE IMÁGENES === */
 img {
     max-width: 100%;
     height: auto;
     display: block;
+    object-fit: contain;
+    aspect-ratio: attr(width) / attr(height);
 }
 
-a {
-    text-decoration: none;
-    color: inherit;
-    -webkit-tap-highlight-color: transparent;
+img[loading="lazy"] {
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
-button {
-    border: none;
-    background: none;
-    cursor: pointer;
-    font-family: inherit;
-    -webkit-tap-highlight-color: transparent;
+img[loading="lazy"].loaded {
+    opacity: 1;
 }
 
 /* === UTILITARIOS === */
@@ -635,6 +633,16 @@ button {
     .btn {
         width: 100%;
         max-width: 280px;
+    }
+
+    .service-icon {
+        width: 50px;
+        height: 50px;
+    }
+
+    .contact-icon {
+        width: 35px;
+        height: 35px;
     }
 }
 

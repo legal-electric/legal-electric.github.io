@@ -2,7 +2,7 @@
 <html lang="es-AR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
     <meta name="description" content="Legal Electric - Servicios eléctricos profesionales en Mar del Plata. Instalaciones, reparaciones y domótica domiciliaria con garantía y experiencia.">
     <meta name="keywords" content="electricista, Mar del Plata, instalaciones eléctricas, reparaciones, domótica, electricista domiciliario">
     <meta name="author" content="Legal Electric">
@@ -13,18 +13,19 @@
     <meta property="og:url" content="https://legalelectric.com.ar/">
     <meta property="og:title" content="Legal Electric - Electricista Profesional en Mar del Plata">
     <meta property="og:description" content="Servicios eléctricos profesionales con garantía. Instalaciones, reparaciones y domótica.">
-    <meta property="og:image" content="https://legalelectric.com.ar/img/logo.png">
+    <meta property="og:image" content="https://legalelectric.com.ar/img/logo.webp">
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://legalelectric.com.ar/">
     <meta property="twitter:title" content="Legal Electric - Electricista Profesional en Mar del Plata">
     <meta property="twitter:description" content="Servicios eléctricos profesionales con garantía. Instalaciones, reparaciones y domótica.">
-    <meta property="twitter:image" content="https://legalelectric.com.ar/img/logo.png">
+    <meta property="twitter:image" content="https://legalelectric.com.ar/img/logo.webp">
     
     <title>Legal Electric | Electricista Profesional en Mar del Plata</title>
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="img/logo.webp" as="image" type="image/webp">
     <link rel="stylesheet" href="styles.css">
-    <link rel="preload" href="img/logo.png" as="image">
 </head>
 
 <body>
@@ -33,7 +34,7 @@
         <div class="container">
             <div class="header-container">
                 <a href="#home" class="logo" aria-label="Legal Electric - Inicio">
-                    <img src="img/logo.png" alt="Legal Electric" width="180" height="50" class="logo-img">
+                    <img src="img/logo.webp" alt="Legal Electric" width="180" height="50" class="logo-img" loading="eager" fetchpriority="high">
                 </a>
 
                 <nav aria-label="Navegación principal">
@@ -57,7 +58,7 @@
     <section class="hero" id="home">
         <div class="container">
             <div class="hero-content">
-                <img src="img/logo.png" alt="Legal Electric" width="300" height="83" class="hero-logo" loading="eager">
+                <img src="img/logo.webp" alt="Legal Electric" width="300" height="83" class="hero-logo" loading="eager" decoding="async" fetchpriority="high">
                 <h1 class="hero-title">
                     <span class="accent">LEGAL</span>
                     <span class="orange">ELECTRIC</span>
@@ -69,11 +70,11 @@
                 </p>
                 <div class="hero-actions">
                     <a href="#services" class="btn btn-primary">
-                        <img src="img/instalaciones.png" alt="" aria-hidden="true" width="20" height="20">
+                        <img src="img/instalaciones.webp" alt="" aria-hidden="true" width="20" height="20" loading="lazy" decoding="async">
                         Ver Servicios
                     </a>
                     <a href="#contact" class="btn btn-outline">
-                        <img src="img/telefono.png" alt="" aria-hidden="true" width="20" height="20">
+                        <img src="img/telefono.webp" alt="" aria-hidden="true" width="20" height="20" loading="lazy" decoding="async">
                         Contactar
                     </a>
                 </div>
@@ -89,7 +90,7 @@
             <div class="services-grid">
                 <article class="service-card">
                     <div class="service-header">
-                        <img src="img/instalaciones.png" alt="Instalaciones Eléctricas" width="60" height="60" class="service-icon" loading="lazy">
+                        <img src="img/instalaciones.webp" alt="Instalaciones Eléctricas" width="60" height="60" class="service-icon" loading="lazy" decoding="async">
                         <h3 class="service-title">Instalaciones Eléctricas</h3>
                     </div>
                     <div class="service-content">
@@ -106,7 +107,7 @@
 
                 <article class="service-card">
                     <div class="service-header">
-                        <img src="img/reparaciones.png" alt="Reparaciones" width="60" height="60" class="service-icon" loading="lazy">
+                        <img src="img/reparaciones.webp" alt="Reparaciones" width="60" height="60" class="service-icon" loading="lazy" decoding="async">
                         <h3 class="service-title">Reparaciones</h3>
                     </div>
                     <div class="service-content">
@@ -123,7 +124,7 @@
 
                 <article class="service-card">
                     <div class="service-header">
-                        <img src="img/domotica.png" alt="Domótica" width="60" height="60" class="service-icon" loading="lazy">
+                        <img src="img/domotica.webp" alt="Domótica" width="60" height="60" class="service-icon" loading="lazy" decoding="async">
                         <h3 class="service-title">Domótica</h3>
                     </div>
                     <div class="service-content">
@@ -140,7 +141,7 @@
 
                 <article class="service-card">
                     <div class="service-header">
-                        <img src="img/inspecciones.png" alt="Inspecciones" width="60" height="60" class="service-icon" loading="lazy">
+                        <img src="img/inspecciones.webp" alt="Inspecciones" width="60" height="60" class="service-icon" loading="lazy" decoding="async">
                         <h3 class="service-title">Inspecciones</h3>
                     </div>
                     <div class="service-content">
@@ -165,7 +166,7 @@
             
             <div class="contact-grid">
                 <div class="contact-item">
-                    <img src="img/ubicacion.png" alt="Ubicación" width="40" height="40" class="contact-icon" loading="lazy">
+                    <img src="img/ubicacion.webp" alt="Icono de ubicación" width="40" height="40" class="contact-icon" loading="lazy" decoding="async">
                     <div class="contact-info">
                         <h3>Ubicación</h3>
                         <p>Mar del Plata, Argentina</p>
@@ -173,7 +174,7 @@
                 </div>
 
                 <div class="contact-item">
-                    <img src="img/telefono.png" alt="Teléfono" width="40" height="40" class="contact-icon" loading="lazy">
+                    <img src="img/telefono.webp" alt="Icono de teléfono" width="40" height="40" class="contact-icon" loading="lazy" decoding="async">
                     <div class="contact-info">
                         <h3>Teléfono</h3>
                         <p><a href="tel:+542236154096">2236 154096</a></p>
@@ -181,15 +182,15 @@
                 </div>
 
                 <div class="contact-item">
-                    <img src="img/email.png" alt="Email" width="40" height="40" class="contact-icon" loading="lazy">
+                    <img src="img/email.webp" alt="Icono de email" width="40" height="40" class="contact-icon" loading="lazy" decoding="async">
                     <div class="contact-info">
                         <h3>Email</h3>
                         <p><a href="mailto:yago.legalmdq@gmail.com">yago.legalmdq@gmail.com</a></p>
                     </div>
                 </div>
 
-                <a href="https://wa.me/542236154096" class="btn whatsapp-btn" target="_blank" rel="noopener noreferrer">
-                    <img src="img/whatsapp.png" alt="WhatsApp" width="24" height="24">
+                <a href="https://wa.me/542236154096" class="btn whatsapp-btn" target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp">
+                    <img src="img/whatsapp.webp" alt="Icono de WhatsApp" width="24" height="24" loading="lazy" decoding="async">
                     Contactar por WhatsApp
                 </a>
             </div>
@@ -201,7 +202,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <img src="img/logo.png" alt="Legal Electric" width="160" height="44" loading="lazy">
+                    <img src="img/logo.webp" alt="Legal Electric" width="160" height="44" loading="lazy" decoding="async">
                     <p>Servicios eléctricos profesionales en Mar del Plata. Seguridad y confianza para tu hogar.</p>
                 </div>
 
@@ -231,6 +232,6 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
 </body>
 </html>
